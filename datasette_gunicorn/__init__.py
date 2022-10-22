@@ -26,13 +26,16 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
 def serve_with_gunicorn(**kwargs):
     from datasette import cli
+
     workers = kwargs.pop("workers")
+    port = kwargs["port"]
+    host = kwargs["host"]
     kwargs["return_instance"] = True
     ds = cli.serve.callback(**kwargs)
     asgi = StandaloneApplication(
         app=ds.app(),
         options={
-            "bind": "{}:{}".format("127.0.0.1", "8001"),
+            "bind": "{}:{}".format(host, port),
             "workers": workers,
         },
     )
