@@ -2,6 +2,18 @@ import click
 from datasette import hookimpl
 import gunicorn.app.base
 
+# These options do not work with 'datasette gunicorn':
+invalid_options = {
+    "get",
+    "root",
+    "open_browser",
+    "uds",
+    "reload",
+    "pdb",
+    "ssl_keyfile",
+    "ssl_certfile",
+}
+
 
 class StandaloneApplication(gunicorn.app.base.BaseApplication):
     def __init__(self, app, options):
@@ -30,6 +42,8 @@ def serve_with_gunicorn(**kwargs):
     workers = kwargs.pop("workers")
     port = kwargs["port"]
     host = kwargs["host"]
+    # Need to add back default kwargs for everything in invalid_options:
+    kwargs.update({invalid_option: None for invalid_option in invalid_options})
     kwargs["return_instance"] = True
     ds = cli.serve.callback(**kwargs)
     asgi = StandaloneApplication(
@@ -45,7 +59,9 @@ def serve_with_gunicorn(**kwargs):
 @hookimpl
 def register_commands(cli):
     serve_command = cli.commands["serve"]
-    params = serve_command.params[:]
+    params = [
+        param for param in serve_command.params if param.name not in invalid_options
+    ]
     params.append(
         click.Option(
             ["-w", "--workers"],

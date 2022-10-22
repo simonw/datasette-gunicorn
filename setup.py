@@ -33,6 +33,6 @@ setup(
     packages=["datasette_gunicorn"],
     entry_points={"datasette": ["gunicorn = datasette_gunicorn"]},
     install_requires=["datasette", "gunicorn"],
-    extras_require={"test": ["pytest", "pytest-asyncio"]},
+    extras_require={"test": ["pytest", "pytest-asyncio", "cogapp"]},
     python_requires=">=3.7",
 )
