@@ -26,9 +26,19 @@ def localhost_server():
     ds_proc.terminate()
 
 
-def test_homepage(localhost_server):
-    for path in ("/.json", "/_memory.json"):
-        response = httpx.get("http://localhost:8043{}".format(path))
-        assert response.status_code == 200
+@pytest.mark.parametrize(
+    "path,expected_status_code",
+    (
+        ("/", 200),
+        ("/.json", 200),
+        ("/_memory", 200),
+        ("/_memory.json", 200),
+        ("/404", 404),
+        ("/404.json", 404),
+    ),
+)
+def test_page(localhost_server, path, expected_status_code):
+    response = httpx.get("http://localhost:8043{}".format(path))
+    assert response.status_code == expected_status_code
+    if path.endswith(".json"):
         assert isinstance(response.json(), dict)
-    assert httpx.get("http://localhost:8043/404").status_code == 404
