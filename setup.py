@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-VERSION = "0.1"
+VERSION = "0.1.1"
 
 
 def get_long_description():
@@ -32,7 +32,7 @@ setup(
     version=VERSION,
     packages=["datasette_gunicorn"],
     entry_points={"datasette": ["gunicorn = datasette_gunicorn"]},
-    install_requires=["datasette", "gunicorn"],
+    install_requires=["datasette>0.63.2", "gunicorn"],
     extras_require={"test": ["pytest", "pytest-asyncio", "cogapp"]},
     python_requires=">=3.7",
 )
