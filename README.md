@@ -50,38 +50,43 @@ Usage: datasette gunicorn [OPTIONS] [FILES]...
   Start a Gunicorn server running to serve Datasette
 
 Options:
-  -i, --immutable PATH      Database files to open in immutable mode
-  -h, --host TEXT           Host for server. Defaults to 127.0.0.1 which means
-                            only connections from the local machine will be
-                            allowed. Use 0.0.0.0 to listen to all IPs and allow
-                            access from other machines.
-  -p, --port INTEGER RANGE  Port for server, defaults to 8001. Use -p 0 to
-                            automatically assign an available port.
-                            [0<=x<=65535]
-  --cors                    Enable CORS by serving Access-Control-Allow-Origin:
-                            *
-  --load-extension TEXT     Path to a SQLite extension to load
-  --inspect-file TEXT       Path to JSON file created using "datasette inspect"
-  -m, --metadata FILENAME   Path to JSON/YAML file containing license/source
-                            metadata
-  --template-dir DIRECTORY  Path to directory containing custom templates
-  --plugins-dir DIRECTORY   Path to directory containing custom plugins
-  --static MOUNT:DIRECTORY  Serve static files from this directory at /MOUNT/...
-  --memory                  Make /_memory database available
-  --config CONFIG           Deprecated: set config option using
-                            configname:value. Use --setting instead.
-  --setting SETTING...      Setting, see
-                            docs.datasette.io/en/stable/settings.html
-  --secret TEXT             Secret used for signing secure values, such as
-                            signed cookies
-  --version-note TEXT       Additional note to show on /-/versions
-  --help-settings           Show available settings
-  --create                  Create database files if they do not exist
-  --crossdb                 Enable cross-database joins using the /_memory
-                            database
-  --nolock                  Ignore locking, open locked files in read-only mode
-  -w, --workers INTEGER     Number of Gunicorn workers  [default: 1]
-  --help                    Show this message and exit.
+  -i, --immutable PATH            Database files to open in immutable mode
+  -h, --host TEXT                 Host for server. Defaults to 127.0.0.1 which
+                                  means only connections from the local machine
+                                  will be allowed. Use 0.0.0.0 to listen to all
+                                  IPs and allow access from other machines.
+  -p, --port INTEGER RANGE        Port for server, defaults to 8001. Use -p 0 to
+                                  automatically assign an available port.
+                                  [0<=x<=65535]
+  --cors                          Enable CORS by serving Access-Control-Allow-
+                                  Origin: *
+  --load-extension PATH:ENTRYPOINT?
+                                  Path to a SQLite extension to load, and
+                                  optional entrypoint
+  --inspect-file TEXT             Path to JSON file created using "datasette
+                                  inspect"
+  -m, --metadata FILENAME         Path to JSON/YAML file containing
+                                  license/source metadata
+  --template-dir DIRECTORY        Path to directory containing custom templates
+  --plugins-dir DIRECTORY         Path to directory containing custom plugins
+  --static MOUNT:DIRECTORY        Serve static files from this directory at
+                                  /MOUNT/...
+  --memory                        Make /_memory database available
+  --config CONFIG                 Deprecated: set config option using
+                                  configname:value. Use --setting instead.
+  --setting SETTING...            Setting, see
+                                  docs.datasette.io/en/stable/settings.html
+  --secret TEXT                   Secret used for signing secure values, such as
+                                  signed cookies
+  --version-note TEXT             Additional note to show on /-/versions
+  --help-settings                 Show available settings
+  --create                        Create database files if they do not exist
+  --crossdb                       Enable cross-database joins using the /_memory
+                                  database
+  --nolock                        Ignore locking, open locked files in read-only
+                                  mode
+  -w, --workers INTEGER           Number of Gunicorn workers  [default: 1]
+  --help                          Show this message and exit.
 
 ```
 <!-- [[[end]]] -->
